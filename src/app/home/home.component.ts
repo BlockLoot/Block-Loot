@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {CoinMarketCapService} from '../shared/coin-market-cap.service';
-import {Currency} from '../shared/models/currency.model';
+import { Component, OnInit } from '@angular/core';
+import { Currency } from '../shared/models/currency.model';
+import { CoinMarketCapService } from '../data/coin-market-cap.service';
 
 @Component({
     selector: 'app-home',

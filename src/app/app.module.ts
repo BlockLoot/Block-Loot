@@ -1,35 +1,28 @@
-import {RouterModule, Routes} from '@angular/router';
-import {HttpModule} from '@angular/http';
+import { HttpModule } from '@angular/http';
 
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-import {AppComponent} from './app.component';
-import {CurrencyTileComponent} from './currency-tile/currency-tile.component';
-import {HomeComponent} from './home/home.component';
-import {CurrencyListComponent} from './currency-list/currency-list.component';
-import {CoinMarketCapService} from './shared/coin-market-cap.service';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeModule } from './home/home.module';
+import { DataModule } from './data/data.module';
+import { LayoutModule } from './layout/layout.module';
 
-const appRoutes: Routes = [
-    {path: '**', component: HomeComponent}
-];
 
 @NgModule({
     declarations: [
-        AppComponent,
-        CurrencyTileComponent,
-        HomeComponent,
-        CurrencyListComponent
+        AppComponent
     ],
     imports: [
-        RouterModule.forRoot(
-            appRoutes
-        ),
         HttpModule,
-        BrowserModule
+        BrowserModule,
+        LayoutModule,
+        DataModule,
+        HomeModule,
+        AppRoutingModule
     ],
-    providers: [CoinMarketCapService],
-    bootstrap: [AppComponent]
+    bootstrap: [ AppComponent ]
 })
 export class AppModule {
 }

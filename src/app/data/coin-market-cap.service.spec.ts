@@ -1,11 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { CoinMarketCapService } from './coin-market-cap.service';
+import {HttpModule, XHRBackend} from '@angular/http';
+import {MockBackend} from '@angular/http/testing';
 
 describe('CoinMarketCapService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CoinMarketCapService]
+      imports: [ HttpModule ],
+      providers: [
+        CoinMarketCapService,
+        { provide: XHRBackend, useClass: MockBackend }
+      ]
     });
   });
 

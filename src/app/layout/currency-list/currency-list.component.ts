@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Currency} from '../shared/models/currency.model';
+import { Currency } from '../../shared/models/currency.model';
 
 @Component({
   selector: 'app-currency-list',
