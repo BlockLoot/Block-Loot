@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CurrencyListComponent } from './currency-list.component';
+import { LayoutModule } from '../layout.module';
+import { CurrencyTileComponent } from '../currency-tile/currency-tile.component';
 
 describe('CurrencyListComponent', () => {
   let component: CurrencyListComponent;
@@ -8,7 +10,8 @@ describe('CurrencyListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CurrencyListComponent ]
+      // imports: [ LayoutModule ],
+      declarations: [ CurrencyListComponent, CurrencyTileComponent ]
     })
     .compileComponents();
   }));
