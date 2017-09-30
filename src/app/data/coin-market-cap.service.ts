@@ -5,9 +5,13 @@ import 'rxjs/add/operator/catch';
 import {Observable} from 'rxjs/Observable';
 import {ENDPOINT} from './endpoint.constants';
 import { Currency } from '../shared/models/currency.model';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class CoinMarketCapService {
+    currencyKeysToDisplay: string[] = ['bitcoin', 'litecoin'];
+    private currencyKeysToDisplaySubject = new Subject<string[]>();
+    currencyKeysToDisplay$ = this.currencyKeysToDisplaySubject.asObservable();
 
     constructor(private http: Http) {
     }
@@ -16,6 +20,11 @@ export class CoinMarketCapService {
         return this.http.get(ENDPOINT.currenciesURL)
             .map(this.extractData)
             .catch(this.handleError);
+    }
+
+    updateCurrenciesToDisplay(currencies: string[]): void {
+        this.currencyKeysToDisplay = currencies;
+        this.currencyKeysToDisplaySubject.next(this.currencyKeysToDisplay);
     }
 
     private extractData(res: Response) {
