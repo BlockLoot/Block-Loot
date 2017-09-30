@@ -3,8 +3,8 @@ export class Currency {
   name?: string;
   symbol?: string;
   rank?: string;
-  price_usd?: string;
-  price_btc?: string;
+  price_usd?: number;
+  price_btc?: number;
   '24h_volume_usd'?: string;
   market_cap_usd?: string;
   available_supply?: string;
