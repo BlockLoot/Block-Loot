@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {COIN_URLS} from '../../data/icon-urls.constants';
+import { Component, Input, OnInit } from '@angular/core';
+import { COIN_URLS } from '../../data/icon-urls.constants';
 
 @Component({
   selector: 'app-currency-tile',
@@ -13,7 +13,8 @@ export class CurrencyTileComponent implements OnInit {
   @Input() amountOwned: number;
   iconURL: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.iconURL = COIN_URLS[this.symbol];
