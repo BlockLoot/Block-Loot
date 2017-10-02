@@ -3,6 +3,7 @@ import { Currency } from '../shared/models/currency.model';
 import { CoinMarketCapService } from '../data/coin-market-cap.service';
 import { UserSettingsService } from '../data/user-settings.service';
 import { Subscription } from 'rxjs/Subscription';
+import { LocalStorageService } from '../core/local-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,9 @@ export class HomeComponent implements OnInit {
   currencyKeysToDisplay: string[];
   currencyKeysToDisplaySubscription: Subscription;
 
-  constructor(private coinMarketCapService: CoinMarketCapService, private userSettingsService: UserSettingsService) {
+  constructor(private coinMarketCapService: CoinMarketCapService,
+              private userSettingsService: UserSettingsService,
+              private localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
@@ -23,6 +26,7 @@ export class HomeComponent implements OnInit {
       data => this.currencyKeysToDisplay = data);
 
     this.loadCurrencyData();
+    this.loadLocalStorage();
   }
 
   /**
@@ -48,5 +52,25 @@ export class HomeComponent implements OnInit {
   private loadCurrencyData(): void {
     this.coinMarketCapService.getAllCurrencyData()
       .subscribe(data => this.currencyData = data);
+  }
+
+  private loadLocalStorage(): void {
+    const currencyAmountsOwned = JSON.parse(this.localStorageService.getItem('currencyAmountsOwned'));
+
+    if (currencyAmountsOwned !== null) {
+      this.userSettingsService.currencyAmountsOwned = currencyAmountsOwned;
+    } else {
+      //this.userSettingsService.currencyAmountsOwned = {};
+      this.userSettingsService.currencyAmountsOwned = {
+        'BTC': 0.0271,
+        'LTC': 22.00,
+        'GNT': 761.00,
+        'ETH': 0.807,
+        'QTUM': 2.00,
+        'OMG': 2.00
+      };
+      this.localStorageService.setItem('currencyAmountsOwned',
+        JSON.stringify(this.userSettingsService.currencyAmountsOwned));
+    }
   }
 }

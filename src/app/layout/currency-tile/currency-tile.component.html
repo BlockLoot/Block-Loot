@@ -1,6 +1,7 @@
 <div class="container">
     <img src="{{iconURL}}">
     <p> {{ name }} </p>
-    <p> {{ value }} </p>
-    <p> {{ amountOwned}} / {{ formattedValue }} </p>
+    <p> Coin value: ${{ value }} </p>
+    <p *ngIf="amountOwned > 0"> Amount owned: {{ amountOwned}} / Value: ${{ formattedValue }} </p>
+    <p *ngIf="!(amountOwned > 0)"> $0.00 </p>
 </div>
