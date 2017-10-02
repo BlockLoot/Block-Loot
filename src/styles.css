@@ -1,3 +1,7 @@
 html, body, p, ul, li, h1, h2, h3, tr, td {
     font-family: 'Open Sans', sans-serif;
 }
+
+img {
+    display: block;
+}

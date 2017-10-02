@@ -1,3 +1,13 @@
 .container {
-  border: 1px solid black;
+}
+
+img {
+  $widthAndHeight: 100px;
+  width: $widthAndHeight;
+  height: $widthAndHeight;
+  margin: 0 auto;
+}
+
+p {
+  text-align: center;
 }
