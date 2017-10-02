@@ -17,7 +17,7 @@ export class CurrencyTileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.iconURL = COIN_URLS[this.symbol];
+    this.iconURL = COIN_URLS[this.symbol.toUpperCase()];
   }
 
   get formattedValue() {
