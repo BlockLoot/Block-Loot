@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { CoinMarketCapService } from './coin-market-cap.service';
+import { UserSettingsService } from './user-settings.service';
+
 
 @NgModule({
   imports: [
@@ -10,6 +12,6 @@ import { CoinMarketCapService } from './coin-market-cap.service';
     HttpModule
   ],
   declarations: [],
-  providers: [ CoinMarketCapService ]
+  providers: [ CoinMarketCapService, UserSettingsService ]
 })
 export class DataModule { }

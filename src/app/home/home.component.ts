@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Currency } from '../shared/models/currency.model';
 import { CoinMarketCapService } from '../data/coin-market-cap.service';
+import {UserSettingsService} from '../data/user-settings.service';
 
 @Component({
     selector: 'app-home',
@@ -11,10 +12,10 @@ export class HomeComponent implements OnInit {
     currencyData: Currency[];
     currencyKeysToDisplay: string[];
 
-    constructor(private coinMarketCapService: CoinMarketCapService) { }
+    constructor(private coinMarketCapService: CoinMarketCapService, private userSettingsService: UserSettingsService) { }
 
     ngOnInit() {
-        this.currencyKeysToDisplay = this.coinMarketCapService.currencyKeysToDisplay;
+        this.currencyKeysToDisplay = this.userSettingsService.currencyKeysToDisplay;
         this.loadCurrencyData();
     }
 

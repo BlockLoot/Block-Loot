@@ -1,21 +1,12 @@
 import { Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 
 import { ENDPOINT } from './endpoint.constants';
 import { Currency } from '../shared/models/currency.model';
 
-/**
- * I suggest breaking this out into two different services. Use this one for your
- * http calls, and create a different one that provides the current user's configuration
- * values for the types of currency they want to display.
- */
 @Injectable()
 export class CoinMarketCapService {
-    currencyKeysToDisplay: string[] = ['bitcoin', 'litecoin', 'golem', 'ethereum', 'quantum', 'omisego'];
-    private currencyKeysToDisplaySubject = new Subject<string[]>();
-    currencyKeysToDisplay$ = this.currencyKeysToDisplaySubject.asObservable();
 
     constructor(private http: Http) {
     }
@@ -24,11 +15,6 @@ export class CoinMarketCapService {
         return this.http.get(ENDPOINT.currenciesURL)
             .map(this.extractData)
             .catch(this.handleError);
-    }
-
-    updateCurrenciesToDisplay(currencies: string[]): void {
-        this.currencyKeysToDisplay = currencies;
-        this.currencyKeysToDisplaySubject.next(this.currencyKeysToDisplay);
     }
 
     private extractData(res: Response) {
