@@ -10,6 +10,7 @@ export class CurrencyTileComponent implements OnInit {
   @Input() name: string;
   @Input() value: number;
   @Input() symbol: string;
+  @Input() amountOwned: number;
   iconURL: string;
 
   constructor() { }
@@ -19,7 +20,7 @@ export class CurrencyTileComponent implements OnInit {
   }
 
   get formattedValue() {
-    const val = +this.value;
+    const val = +this.value * +this.amountOwned;
     return val.toFixed(2);
   }
 
