@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class UserSettingsService {
-  currencyKeysToDisplay: string[] = ['BTC', 'LTC', 'GNT', 'ETH', 'QAU', 'OMG'];
+  currencyKeysToDisplay: string[] = ['BTC', 'LTC', 'GNT', 'ETH', 'QTUM', 'OMG'];
   private currencyKeysToDisplaySubject = new Subject<string[]>();
   currencyKeysToDisplay$ = this.currencyKeysToDisplaySubject.asObservable();
 
@@ -12,7 +12,7 @@ export class UserSettingsService {
     'LTC': 22.00,
     'GNT': 761.00,
     'ETH': 0.807,
-    'QAU': 2.00,
+    'QTUM': 2.00,
     'OMG': 2.00
   };
   private currencyAmountsOwnedSubject = new Subject<{}>();
