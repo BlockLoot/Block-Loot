@@ -1,8 +1,10 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { HttpModule, XHRBackend } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 
 import { CoinMarketCapService } from './coin-market-cap.service';
-import {HttpModule, XHRBackend} from '@angular/http';
-import {MockBackend} from '@angular/http/testing';
+
+import '../rxjs-operators';
 
 describe('CoinMarketCapService', () => {
   beforeEach(() => {
