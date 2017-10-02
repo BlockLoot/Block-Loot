@@ -9,7 +9,7 @@ import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class CoinMarketCapService {
-    currencyKeysToDisplay: string[] = ['bitcoin', 'litecoin'];
+    currencyKeysToDisplay: string[] = ['bitcoin', 'litecoin', 'golem', 'ethereum', 'quantum', 'omisego'];
     private currencyKeysToDisplaySubject = new Subject<string[]>();
     currencyKeysToDisplay$ = this.currencyKeysToDisplaySubject.asObservable();
 
