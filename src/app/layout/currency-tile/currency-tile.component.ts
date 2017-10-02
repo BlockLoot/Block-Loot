@@ -18,4 +18,9 @@ export class CurrencyTileComponent implements OnInit {
     this.iconURL = COIN_URLS[this.symbol];
   }
 
+  get formattedValue() {
+    const val = +this.value;
+    return val.toFixed(2);
+  }
+
 }
