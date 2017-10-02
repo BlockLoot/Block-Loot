@@ -1,5 +1,5 @@
 <div class="pure-g">
   <div class="pure-u-1-4" *ngFor="let currency of allCurrencies">
-    <app-currency-tile [name]="currency.name" [value]="currency.price_usd" [symbol]="currency.symbol" [amountOwned]="1"></app-currency-tile>
+    <app-currency-tile [name]="currency.name" [value]="currency.price_usd" [symbol]="currency.symbol" [amountOwned]="amountOwned(currency)"></app-currency-tile>
   </div>
 </div>

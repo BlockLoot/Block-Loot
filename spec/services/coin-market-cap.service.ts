@@ -4,7 +4,8 @@ import { Currency } from '../../src/app/shared/models/currency.model';
 
 export class MockCoinMarketCapService {
 
-  constructor() { }
+  constructor() {
+  }
 
   getAllCurrencyData(): Observable<Currency[]> {
     const mockData = Observable.create((observer: Observer<Currency[]>) => {
@@ -12,7 +13,7 @@ export class MockCoinMarketCapService {
       observer.complete();
     });
 
-    return mockData
+    return mockData;
   }
 
 

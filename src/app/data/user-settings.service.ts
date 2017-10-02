@@ -3,9 +3,20 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class UserSettingsService {
-  currencyKeysToDisplay: string[] = ['bitcoin', 'litecoin', 'golem', 'ethereum', 'quantum', 'omisego'];
+  currencyKeysToDisplay: string[] = ['BTC', 'LTC', 'GNT', 'ETH', 'QAU', 'OMG'];
   private currencyKeysToDisplaySubject = new Subject<string[]>();
   currencyKeysToDisplay$ = this.currencyKeysToDisplaySubject.asObservable();
+
+  currencyAmountsOwned: {} = {
+    'BTC': 0.0271,
+    'LTC': 22.00,
+    'GNT': 761.00,
+    'ETH': 0.807,
+    'QAU': 2.00,
+    'OMG': 2.00
+  };
+  private currencyAmountsOwnedSubject = new Subject<{}>();
+  currencyAmountsOwned$ = this.currencyAmountsOwnedSubject.asObservable();
 
   constructor() {
   }

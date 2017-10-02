@@ -36,8 +36,8 @@ export class HomeComponent implements OnInit {
         const el = item;
 
         // Add undefined check to pass tests
-        if (typeof el.name !== 'undefined') {
-          if (acceptableKeys.indexOf(el.name.toLowerCase()) > -1) {
+        if (typeof el.symbol !== 'undefined') {
+          if (acceptableKeys.indexOf(el.symbol.toUpperCase()) > -1) {
             return item;
           }
         }
