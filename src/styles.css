@@ -5,3 +5,8 @@ html, body, p, ul, li, h1, h2, h3, tr, td {
 img {
     display: block;
 }
+
+body {
+    background: #191a1c;
+    color: #ffffff;
+}
