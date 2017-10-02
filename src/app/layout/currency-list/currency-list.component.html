@@ -1,3 +1,3 @@
-<ng-container *ngFor="let currency of allCurrencies">
-  <app-currency-tile [name]="currency.name" [value]="currency.price_usd"></app-currency-tile>
-</ng-container>
+<div *ngFor="let currency of allCurrencies">
+  <app-currency-tile [name]="currency.name" [value]="currency.price_usd" [symbol]="currency.symbol"></app-currency-tile>
+</div>

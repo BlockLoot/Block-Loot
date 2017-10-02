@@ -19,7 +19,6 @@ export class CurrencyStatsComponent implements OnInit {
         let sumOfCurrencies = 0;
         if (this.allCurrencies != null) {
             for (const currentCurrency of this.allCurrencies) {
-                console.log(currentCurrency.price_usd);
                 sumOfCurrencies += +currentCurrency.price_usd;
             }
         }
