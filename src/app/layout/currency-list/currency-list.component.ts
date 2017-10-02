@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Currency } from '../../shared/models/currency.model';
-import { UserSettingsService } from '../../data/user-settings.service';
+import { LocalStorageService } from '../../core/local-storage.service';
 
 @Component({
   selector: 'app-currency-list',
@@ -10,13 +10,16 @@ import { UserSettingsService } from '../../data/user-settings.service';
 export class CurrencyListComponent implements OnInit {
   @Input() allCurrencies: Currency[];
 
-  constructor(private userSettingsService: UserSettingsService) {
+  constructor(private localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
   }
 
   amountOwned(currency: Currency) {
-    return this.userSettingsService.currencyAmountsOwned[currency.symbol.toUpperCase()];
+    const currencyAmountsOwned = JSON.parse(this.localStorageService.getItem('currencyAmountsOwned'));
+    if (currencyAmountsOwned !== null && currency.symbol.toUpperCase() in currencyAmountsOwned) {
+      return currencyAmountsOwned[currency.symbol];
+    }
   }
 }

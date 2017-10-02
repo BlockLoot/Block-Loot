@@ -35,6 +35,4 @@ export class LocalStorageService {
   removeItem(key: string): void {
     this._window.localStorage.removeItem(key);
   }
-
-
 }

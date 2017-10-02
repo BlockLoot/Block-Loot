@@ -7,14 +7,7 @@ export class UserSettingsService {
   private currencyKeysToDisplaySubject = new Subject<string[]>();
   currencyKeysToDisplay$ = this.currencyKeysToDisplaySubject.asObservable();
 
-  currencyAmountsOwned: {} = {
-    'BTC': 0.0271,
-    'LTC': 22.00,
-    'GNT': 761.00,
-    'ETH': 0.807,
-    'QTUM': 2.00,
-    'OMG': 2.00
-  };
+  currencyAmountsOwned: {};
   private currencyAmountsOwnedSubject = new Subject<{}>();
   currencyAmountsOwned$ = this.currencyAmountsOwnedSubject.asObservable();
 
