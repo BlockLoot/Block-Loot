@@ -20,7 +20,12 @@ export class CurrencyTileComponent implements OnInit {
     this.iconURL = COIN_URLS[this.symbol.toUpperCase()];
   }
 
-  get formattedValue() {
+  get coinValue() {
+    const value = +this.value;
+    return value.toFixed(2);
+  }
+
+  get valueOfTotalOwned() {
     const val = +this.value * +this.amountOwned;
     return val.toFixed(2);
   }
