@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { COIN_URLS } from '../../data/icon-urls.constants';
+import { SweetAlertService } from '../sweet-alert.service';
 
 @Component({
   selector: 'app-currency-tile',
@@ -13,7 +14,7 @@ export class CurrencyTileComponent implements OnInit {
   @Input() amountOwned: number;
   iconURL: string;
 
-  constructor() {
+  constructor(private sweetAlertService: SweetAlertService) {
   }
 
   ngOnInit() {
@@ -28,6 +29,10 @@ export class CurrencyTileComponent implements OnInit {
   get valueOfTotalOwned() {
     const val = +this.value * +this.amountOwned;
     return val.toFixed(2);
+  }
+
+  swal() {
+    this.sweetAlertService.alert({});
   }
 
 }
