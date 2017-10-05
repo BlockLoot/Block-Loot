@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { COIN_URLS } from '../../data/icon-urls.constants';
 import { SweetAlertService } from '../sweet-alert.service';
+import { UserSettingsService } from '../../data/user-settings.service';
+import { LocalStorageService } from '../../core/local-storage.service';
 
 @Component({
   selector: 'app-currency-tile',
@@ -14,7 +16,9 @@ export class CurrencyTileComponent implements OnInit {
   @Input() amountOwned: number;
   iconURL: string;
 
-  constructor(private sweetAlertService: SweetAlertService) {
+  constructor(private sweetAlertService: SweetAlertService,
+              private userSettingsService: UserSettingsService,
+              private localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
@@ -33,15 +37,20 @@ export class CurrencyTileComponent implements OnInit {
 
   swal() {
     const modalOptions = {
-      html: `Can we update your shit?`,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
+      title: 'Update the number of coins owned',
+      confirmButtonText: 'Submit',
+      showCancelButton: true,
+      input: 'text',
+      inputPlaceholder: 'Enter a coin amount',
+      inputClass: 'black-text'
     };
-    
-    const response: Promise<any> = this.sweetAlertService.confirm(modalOptions);
+
+    const response: Promise<any> = this.sweetAlertService.swal(modalOptions);
 
     response.then((data) => {
-      console.log(data);
+      this.userSettingsService.currencyAmountsOwned[this.symbol.toUpperCase()] = +data;
+      this.localStorageService.setItem('currencyAmountsOwned',
+        JSON.stringify(this.userSettingsService.currencyAmountsOwned));
     }).catch((e) => {
       console.log(e);
     });
