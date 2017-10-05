@@ -32,7 +32,20 @@ export class CurrencyTileComponent implements OnInit {
   }
 
   swal() {
-    this.sweetAlertService.alert({});
+    const modalOptions = {
+      html: `Can we update your shit?`,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    };
+    
+    const response: Promise<any> = this.sweetAlertService.confirm(modalOptions);
+
+    response.then((data) => {
+      console.log(data);
+    }).catch((e) => {
+      console.log(e);
+    });
+
   }
 
 }
