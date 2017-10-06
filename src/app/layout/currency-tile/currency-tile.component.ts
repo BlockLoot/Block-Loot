@@ -52,7 +52,6 @@ export class CurrencyTileComponent implements OnInit {
       this.localStorageService.setItem('currencyAmountsOwned',
         JSON.stringify(this.userSettingsService.currencyAmountsOwned));
     }).catch((e) => {
-      console.log(e);
     });
 
   }
