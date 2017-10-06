@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CoinSearchService } from '../coin-search.service';
 import { Currency } from '../../shared/models/currency.model';
 import { Subscription } from 'rxjs/Subscription';
+import { COIN_URLS } from '../../data/icon-urls.constants';
 
 @Component({
   selector: 'app-coin-search-list',
@@ -25,6 +26,10 @@ export class CoinSearchListComponent implements OnInit, OnDestroy {
     if (this.searchResultsSubscription != null) {
       this.searchResultsSubscription.unsubscribe();
     }
+  }
+
+  iconURL(currency: Currency): void {
+    return COIN_URLS[currency.symbol.toUpperCase()];
   }
 
 }

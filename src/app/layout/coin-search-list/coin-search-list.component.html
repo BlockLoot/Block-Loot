@@ -1,3 +1,12 @@
-<ul *ngFor="let currentCurrency of filteredCoins">
-    <li>{{ currentCurrency.name }}</li>
+<ul>
+    <li *ngFor="let currentCurrency of filteredCoins">
+        <div class="search-result">
+            <div class="icon-container">
+                <img src="{{ iconURL(currentCurrency) }}">
+            </div>
+            <div class="currency-details">
+                {{ currentCurrency.name }} ({{ currentCurrency.symbol }})
+            </div>
+        </div>
+    </li>
 </ul>

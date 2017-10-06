@@ -17,22 +17,23 @@ export class CoinSearchComponent implements OnInit {
   }
 
   set searchText(value: string) {
-    this.coinSearchService.updateSearchResults(this.allCurrencies.filter((item: Currency) => {
-      if (item.name.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
-        item.symbol.toLowerCase().indexOf(value.toLowerCase()) > -1) {
-        return item;
-      }
-    }).sort(this.sortByNameAscending));
+    if (value.length > 0 && this.allCurrencies != null) {
+      this.coinSearchService.updateSearchResults(this.allCurrencies.filter((item: Currency) => {
+        // If a coin doesn't have a set market cap, it's probably worthless, so we'll ignore it.  Otherwise,
+        // check to see if the name or symbol contains the search text.  Sort results by the market cap descending.
+        // Algorithm subject to change.
+        if (item.market_cap_usd !== null && (item.name.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+            item.symbol.toLowerCase().indexOf(value.toLowerCase()) > -1)) {
+          return item;
+        }
+      }).sort(this.sortByMarketCapDescending));
+    } else {
+      this.coinSearchService.updateSearchResults([]);
+    }
   }
 
-  private sortByNameAscending(a, b) {
-    if (a.name.trim().toLowerCase() < b.name.trim().toLowerCase()) {
-      return -1;
-    }
-    if (a.name.trim().toLowerCase() > b.name.trim().toLowerCase()) {
-      return 1;
-    }
-    return 0;
+  private sortByMarketCapDescending(a, b) {
+    return b.market_cap_usd - a.market_cap_usd;
   }
 
 }
