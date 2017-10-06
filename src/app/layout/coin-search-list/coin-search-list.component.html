@@ -1,6 +1,6 @@
 <ul>
     <li *ngFor="let currentCurrency of filteredCoins">
-        <div class="search-result">
+        <div (click)="addCurrency(currentCurrency)" class="search-result">
             <div class="icon-container">
                 <img src="{{ iconURL(currentCurrency) }}">
             </div>

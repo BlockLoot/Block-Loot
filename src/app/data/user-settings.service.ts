@@ -19,4 +19,9 @@ export class UserSettingsService {
     this.currencyKeysToDisplaySubject.next(this.currencyKeysToDisplay);
   }
 
+  updateCurrencyAmountsOwned(currencyAmountsOwned: {}) {
+    this.currencyAmountsOwned = currencyAmountsOwned;
+    this.currencyAmountsOwnedSubject.next(this.currencyAmountsOwned);
+  }
+
 }
