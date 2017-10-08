@@ -55,6 +55,11 @@ export class HomeComponent implements OnInit {
   }
 
   private loadLocalStorage(): void {
+    this.setLocalCurrencyAmountsOwned();
+    this.setLocalCurrencyKeysToDisplay();
+  }
+
+  private setLocalCurrencyAmountsOwned(): void {
     const currencyAmountsOwned = JSON.parse(this.localStorageService.getItem('currencyAmountsOwned'));
 
     if (currencyAmountsOwned !== null) {
@@ -71,6 +76,18 @@ export class HomeComponent implements OnInit {
       };
       this.localStorageService.setItem('currencyAmountsOwned',
         JSON.stringify(this.userSettingsService.currencyAmountsOwned));
+    }
+  }
+
+  private setLocalCurrencyKeysToDisplay(): void {
+    const keysToDisplay = JSON.parse(this.localStorageService.getItem('currencyKeysToDisplay'));
+
+    if (keysToDisplay !== null) {
+      this.userSettingsService.updateCurrenciesToDisplay(keysToDisplay);
+    } else {
+      this.userSettingsService.updateCurrenciesToDisplay(['BTC', 'LTC', 'GNT', 'ETH', 'QTUM', 'OMG']);
+      this.localStorageService.setItem('currencyKeysToDisplay',
+        JSON.stringify(this.userSettingsService.currencyKeysToDisplay));
     }
   }
 }

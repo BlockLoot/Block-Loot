@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class UserSettingsService {
-  currencyKeysToDisplay: string[] = ['BTC', 'LTC', 'GNT', 'ETH', 'QTUM', 'OMG'];
+  currencyKeysToDisplay: string[];
   private currencyKeysToDisplaySubject = new Subject<string[]>();
   currencyKeysToDisplay$ = this.currencyKeysToDisplaySubject.asObservable();
 

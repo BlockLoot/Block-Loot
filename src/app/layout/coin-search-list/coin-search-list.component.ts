@@ -48,6 +48,8 @@ export class CoinSearchListComponent implements OnInit, OnDestroy {
 
     this.localStorageService.setItem('currencyAmountsOwned',
       JSON.stringify(this.userSettingsService.currencyAmountsOwned));
+    this.localStorageService.setItem('currencyKeysToDisplay',
+      JSON.stringify(this.userSettingsService.currencyKeysToDisplay));
   }
 
 }
