@@ -1,10 +1,13 @@
-<div  (click)="swal()" class="container">
-    <img src="{{iconURL}}">
-    <p> {{ name }} </p>
-    <p> Coin value: ${{ coinValue }}</p>
-    <ng-container *ngIf="amountOwned > 0">
-        <p> Amount owned: {{ amountOwned}}</p>
-        <p>Value: ${{ valueOfTotalOwned }} </p>
-    </ng-container>
-    <p *ngIf="!(amountOwned > 0)"> $0.00 </p>
+<div class="container">
+    <p (click)="closeClick()">Close</p>
+    <div (click)="swal()">
+        <img src="{{iconURL}}">
+        <p> {{ name }} </p>
+        <p> Coin value: ${{ coinValue }}</p>
+        <ng-container *ngIf="amountOwned > 0">
+            <p> Amount owned: {{ amountOwned}}</p>
+            <p>Value: ${{ valueOfTotalOwned }} </p>
+        </ng-container>
+        <p *ngIf="!(amountOwned > 0)"> $0.00 </p>
+    </div>
 </div>

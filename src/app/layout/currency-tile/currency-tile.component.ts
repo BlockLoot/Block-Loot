@@ -56,4 +56,15 @@ export class CurrencyTileComponent implements OnInit {
 
   }
 
+  closeClick() {
+    const keys = this.userSettingsService.currencyKeysToDisplay;
+    const index = keys.indexOf(this.symbol);
+
+    if (index > -1) {
+      keys.splice(index, 1);
+    }
+
+    this.userSettingsService.updateCurrenciesToDisplay(keys);
+  }
+
 }
