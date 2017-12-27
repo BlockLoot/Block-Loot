@@ -8,13 +8,15 @@ import { CoinSearchComponent } from './coin-search/coin-search.component';
 import { FormsModule } from '@angular/forms';
 import { CoinSearchListComponent } from './coin-search-list/coin-search-list.component';
 import { CoinSearchService } from './coin-search.service';
+import { CoinHeatmapComponent } from './coin-heatmap/coin-heatmap.component';
 
 export const sharedComponents = [
   CurrencyListComponent,
   CurrencyTileComponent,
   CurrencyStatsComponent,
   CoinSearchComponent,
-  CoinSearchListComponent];
+  CoinSearchListComponent,
+  CoinHeatmapComponent];
 
 @NgModule({
   imports: [
@@ -23,7 +25,7 @@ export const sharedComponents = [
   ],
   providers: [SweetAlertService, CoinSearchService],
   exports: [sharedComponents],
-  declarations: [sharedComponents]
+  declarations: [sharedComponents, CoinHeatmapComponent]
 })
 export class LayoutModule {
 }
