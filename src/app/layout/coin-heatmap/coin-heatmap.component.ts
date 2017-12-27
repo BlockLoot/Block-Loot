@@ -17,7 +17,6 @@ export class CoinHeatmapComponent implements OnInit {
   ngOnInit() {
     this.coinMarketCapService.getAllCurrencyData().subscribe(data => {
       this.allCurrencies = data;
-      console.log(this.allCurrencies);
       this.drawHeatmap();
     });
   }
@@ -49,23 +48,39 @@ export class CoinHeatmapComponent implements OnInit {
           return Number(d['market_cap_usd']);
         });
 
-      /*const big_20 = [];
+      const big_20 = [];
       for (let i = 0; i <= 21; i++) {
         big_20[i] = data[i];
-      }*/
+      }
 
-      // make a 'root' node to graph them around
-      // TODO: this would be the coin 'sector'
-      // for now, think of it as one 'sector' only... i.e. the 'crypto sector'
-      const root = {
+      const remaining = [];
+      for (let i = 22; i < data.length; i++) {
+        remaining[i - 22] = data[i];
+      }
+
+      const coin_sectors = {
         name: 'All Coins',
-        value: 1,
-        children: data
+        value: 100,
+        symbol: 'Sector',
+        children: [
+          {
+            name: 'Top 20',
+            value: 20,
+            symbol: 'Sector',
+            children: big_20
+          },
+          {
+            name: 'Alts',
+            value: 80,
+            symbol: 'Sector',
+            children: remaining
+          }
+        ]
       };
 
       // call the pack method
       // Some kind of tree gets generated and passed into the data method below
-      const nodes = pack(root);
+      const nodes = pack(coin_sectors);
 
       // do some d3 magic to the 'g' element in our svg
       dots.selectAll()
@@ -90,18 +105,14 @@ export class CoinHeatmapComponent implements OnInit {
         .style('fill', function (d) {
           return color(d['percent_change_24h']);
         })
-        .attr('href', function (d) {
-          return 'file:///Users/jamesvorderbruggen/Documents/Source/crypto-heatmap/index.html?coin=' + d['id'];
-        })
         .append('svg:title').text(function (d) {
         return d['symbol'] + ' | ' + d['name'];
       });
 
-      // select the sector as 'node',
-      // and adjust its style
+      // select the first "all coins" sector as 'node',
+      // and adjust its style... by removing the border
       const node = d3.select('.node')
-        .style('fill', 'rgba(0, 0, 0, 0)')
-        .style('stroke', '#00ffff');
+        .style('stroke', 'none');
   }
 
 }
