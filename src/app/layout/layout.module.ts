@@ -25,7 +25,7 @@ export const sharedComponents = [
   ],
   providers: [SweetAlertService, CoinSearchService],
   exports: [sharedComponents],
-  declarations: [sharedComponents, CoinHeatmapComponent]
+  declarations: [sharedComponents]
 })
 export class LayoutModule {
 }

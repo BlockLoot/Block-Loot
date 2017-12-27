@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import * as d3 from 'd3';
+import {Currency} from '../../shared/models/currency.model';
+import {CoinMarketCapService} from '../../data/coin-market-cap.service';
 
 @Component({
   selector: 'app-coin-heatmap',
@@ -7,19 +9,23 @@ import * as d3 from 'd3';
   styleUrls: ['./coin-heatmap.component.scss']
 })
 export class CoinHeatmapComponent implements OnInit {
+  allCurrencies: Currency[];
 
-  constructor() {
+  constructor(private coinMarketCapService : CoinMarketCapService) {
   }
 
   ngOnInit() {
-    this.drawHeatmap();
+    this.coinMarketCapService.getAllCurrencyData().subscribe(data => {
+      this.allCurrencies = data;
+      console.log(this.allCurrencies);
+      this.drawHeatmap();
+    });
   }
 
   drawHeatmap() {
-    d3.json('https://api.coinmarketcap.com/v1/ticker/', function (error, response) {
       const h = 500;
       const w = 500;
-      const data = response;
+      const data = this.allCurrencies;
 
       /* Create the chart in the body div with a given width and height from above*/
       const svg = d3.select('#d3')
@@ -96,7 +102,6 @@ export class CoinHeatmapComponent implements OnInit {
       const node = d3.select('.node')
         .style('fill', 'rgba(0, 0, 0, 0)')
         .style('stroke', '#00ffff');
-    });
   }
 
 }
