@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { CoinSearchListComponent } from './coin-search-list/coin-search-list.component';
 import { CoinSearchService } from './coin-search.service';
 import { CoinHeatmapComponent } from './coin-heatmap/coin-heatmap.component';
+import { DthreetMapModule } from './dthreet-map/dthreet-map.module';
 
 export const sharedComponents = [
   CurrencyListComponent,
@@ -21,7 +22,8 @@ export const sharedComponents = [
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    DthreetMapModule
   ],
   providers: [SweetAlertService, CoinSearchService],
   exports: [sharedComponents],
