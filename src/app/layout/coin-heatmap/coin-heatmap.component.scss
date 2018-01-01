@@ -7,3 +7,10 @@
   stroke: #00ffff;
   stroke-width: 3px;
 }
+
+:host ::ng-deep .positive_change{
+  color:#00FF00;
+}
+:host ::ng-deep .negative_change{
+  color:red;
+}

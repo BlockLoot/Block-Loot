@@ -31,10 +31,19 @@ export class CoinHeatmapComponent implements OnInit {
               parent.generateInsight(el, parent.allCurrencies);
             });
           }
-          parent.currCoin = parent.findObjectByKey(parent.allCurrencies, 'id', 'bitcoin');
+          parent.updateCurrCoin(parent.findObjectByKey(parent.allCurrencies, 'id', 'bitcoin'));
         }
       });
     });
+  }
+
+  updateCurrCoin(coin){
+    coin.price_usd = Number(coin.price_usd).toFixed(2);
+    coin.price_usd = '$' + coin.price_usd;
+    coin.market_cap_usd = Number(coin.market_cap_usd).toFixed(2);
+    coin.market_cap_usd = '$' + coin.market_cap_usd;
+    coin.price_btc = 'Ƀ ' + coin.price_btc;
+    this.currCoin = coin;
   }
 
   removeOutlines() {
@@ -47,7 +56,7 @@ export class CoinHeatmapComponent implements OnInit {
   generateInsight(element, currencies) {
     element.classList.add('outlined');
     console.log(this.findObjectByKey(currencies, 'id', element.id));
-    this.currCoin = this.findObjectByKey(currencies, 'id', element.id);
+    this.updateCurrCoin(this.findObjectByKey(currencies, 'id', element.id));
   }
 
   findObjectByKey(array, key, value) {
