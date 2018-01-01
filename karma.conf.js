@@ -30,7 +30,8 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: [
       // 'Chrome',
-      'PhantomJS'
+      // 'PhantomJS',
+      'ChromeHeadless'
     ],
     singleRun: false
   });
