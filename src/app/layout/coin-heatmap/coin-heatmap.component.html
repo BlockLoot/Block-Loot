@@ -1,1 +1,25 @@
 <div id="d3"></div>
+<div id="insight">
+  <table class="pure-table">
+    <thead>
+    <tr>
+      <th>Ticker</th>
+      <th>Price (in USD)</th>
+      <th>Price (in BTC)</th>
+      <th>Market Cap (in USD)</th>
+      <th>% Change (24 Hour)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{currCoin == undefined ? '' : currCoin.symbol}}</td>
+      <td>{{currCoin == undefined ? '' : currCoin.price_usd}}</td>
+      <td>{{currCoin == undefined ? '' : currCoin.price_btc}}</td>
+      <td>{{currCoin == undefined ? '' : currCoin.market_cap_usd}}</td>
+      <td>{{currCoin == undefined ? '' : currCoin.percent_change_24h}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<br>

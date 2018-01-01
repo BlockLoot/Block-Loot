@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, Renderer, Renderer2} from '@angular/core';
 import * as d3 from 'd3';
 import {Currency} from '../../shared/models/currency.model';
 import {CoinMarketCapService} from '../../data/coin-market-cap.service';
@@ -10,21 +10,60 @@ import {CoinMarketCapService} from '../../data/coin-market-cap.service';
 })
 export class CoinHeatmapComponent implements OnInit {
   allCurrencies: Currency[];
+  currCoin: object;
 
-  constructor(private coinMarketCapService : CoinMarketCapService) {
+  constructor(private coinMarketCapService: CoinMarketCapService, private elRef: ElementRef, private renderer: Renderer2) {
   }
 
   ngOnInit() {
     this.coinMarketCapService.getAllCurrencyData().subscribe(data => {
       this.allCurrencies = data;
-      this.drawHeatmap();
+      const parent = this;
+      this.drawHeatmap(this.allCurrencies).then(function (error) {
+        if (error) {
+          console.log(error);
+        } else {
+          const arr = parent.elRef.nativeElement.getElementsByClassName('leaf-node');
+          for (let i = 0; i < arr.length; i++) {
+            parent.renderer.listen(arr[i], 'click', event2 => {
+              const el = arr[i];
+              parent.removeOutlines();
+              parent.generateInsight(el, parent.allCurrencies);
+            });
+          }
+          parent.currCoin = parent.findObjectByKey(parent.allCurrencies, 'id', 'bitcoin');
+        }
+      });
     });
   }
 
-  drawHeatmap() {
+  removeOutlines() {
+    const circles = document.getElementsByClassName('outlined');
+    for (let i = 0; i < circles.length; i++) {
+      circles[i].classList.remove('outlined');
+    }
+  }
+
+  generateInsight(element, currencies) {
+    element.classList.add('outlined');
+    console.log(this.findObjectByKey(currencies, 'id', element.id));
+    this.currCoin = this.findObjectByKey(currencies, 'id', element.id);
+  }
+
+  findObjectByKey(array, key, value) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i][key] === value) {
+        return array[i];
+      }
+    }
+    return null;
+  }
+
+  drawHeatmap(currencies) {
+    return new Promise(function (resolve, reject) {
       const h = 500;
       const w = 500;
-      const data = this.allCurrencies;
+      const data = currencies;
 
       /* Create the chart in the body div with a given width and height from above*/
       const svg = d3.select('#d3')
@@ -32,9 +71,13 @@ export class CoinHeatmapComponent implements OnInit {
         .attr('width', w)
         .attr('height', h);
 
-      const color = d3.scale.linear().domain([-100, 100])
+      // one color function for positive, another for negative
+      const colorGreen = d3.scale.linear().domain([0, 100])
         .interpolate(d3.interpolateHcl)
-        .range([d3.rgb('#ff0000'), d3.rgb('#00ff00')]);
+        .range([d3.rgb('#bbffbb'), d3.rgb('#00FF00')]);
+      const colorRed = d3.scale.linear().domain([-100, 0])
+        .interpolate(d3.interpolateHcl)
+        .range([d3.rgb('#ff0000'), d3.rgb('#ffaaaa')]);
 
       // establish the 'g' element into svg for d3 to write to
       // this element is now bound to the variable 'dots'
@@ -48,11 +91,13 @@ export class CoinHeatmapComponent implements OnInit {
           return Number(d['market_cap_usd']);
         });
 
+      // get the big 20 currencies
       const big_20 = [];
       for (let i = 0; i <= 21; i++) {
         big_20[i] = data[i];
       }
 
+      // get the lower 80 currencies
       const remaining = [];
       for (let i = 22; i < data.length; i++) {
         remaining[i - 22] = data[i];
@@ -103,16 +148,22 @@ export class CoinHeatmapComponent implements OnInit {
           return d.y;
         })
         .style('fill', function (d) {
-          return color(d['percent_change_24h']);
+          const change = d['percent_change_24h'];
+          if (change > 0) {
+            return colorGreen(change);
+          } else {
+            return colorRed(change);
+          }
         })
         .append('svg:title').text(function (d) {
         return d['symbol'] + ' | ' + d['name'];
       });
-
       // select the first "all coins" sector as 'node',
       // and adjust its style... by removing the border
       const node = d3.select('.node')
         .style('stroke', 'none');
+      resolve();
+    });
   }
 
 }
