@@ -12,7 +12,7 @@ def init() {
 
         stage('Deploy') {
             withAWS(credentials:'aws') {
-                s3Upload(file:'dist/', bucket:'block-loot', path:'/')
+                s3Upload(file:'dist/', bucket:'block-loot', path:'')
             }
         }
     }
