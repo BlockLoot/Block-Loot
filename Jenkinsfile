@@ -1,6 +1,6 @@
 def init() {
     node {
-        env.NODEJS_HOME = "${tool 'Node 9.x'}"
+        env.NODEJS_HOME = "${tool 'node'}"
         env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
 
         stage('check tools') {
