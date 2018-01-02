@@ -1,0 +1,16 @@
+:host ::ng-deep .node {
+  fill: rgba(0,0,0,0) !important;
+  stroke: #00ffff;
+}
+
+:host ::ng-deep .outlined{
+  stroke: #00ffff;
+  stroke-width: 3px;
+}
+
+:host ::ng-deep .positive_change{
+  color:#00FF00;
+}
+:host ::ng-deep .negative_change{
+  color:red;
+}
