@@ -9,6 +9,12 @@ def init() {
                 npm run build
             '''
         }
+
+        stage('Deploy') {
+            withAWS(credentials:'aws') {
+                s3Upload(file:'dist/', bucket:'block-loot', path:'/')
+            }
+        }
     }
 }
 
