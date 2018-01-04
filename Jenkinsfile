@@ -1,9 +1,11 @@
 def init() {
-    checkout scm
-    
     node {
         env.NODEJS_HOME = "${tool 'node'}"
         env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
+
+        stage('Checkout') {
+            checkout scm
+        }
 
         stage('Build') {
             sh '''
