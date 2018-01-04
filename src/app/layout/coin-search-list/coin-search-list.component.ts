@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CoinSearchService } from '../coin-search.service';
 import { Currency } from '../../shared/models/currency.model';
 import { Subscription } from 'rxjs/Subscription';
-import { COIN_URLS } from '../../data/icon-urls.constants';
 import { UserSettingsService } from '../../data/user-settings.service';
 import { LocalStorageService } from '../../core/local-storage.service';
 
@@ -32,8 +31,8 @@ export class CoinSearchListComponent implements OnInit, OnDestroy {
     }
   }
 
-  iconURL(currency: Currency): void {
-    return COIN_URLS[currency.symbol.toUpperCase()];
+  iconURL(currency: Currency): string {
+      return '../../../assets/icons/' + currency.symbol.toLowerCase() + '.png';
   }
 
   addCurrency(currency: Currency): void {
