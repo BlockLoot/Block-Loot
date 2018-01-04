@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { COIN_URLS } from '../../data/icon-urls.constants';
 import { SweetAlertService } from '../sweet-alert.service';
 import { UserSettingsService } from '../../data/user-settings.service';
 import { LocalStorageService } from '../../core/local-storage.service';
@@ -22,7 +21,7 @@ export class CurrencyTileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.iconURL = COIN_URLS[this.symbol.toUpperCase()];
+    this.iconURL = '../../../assets/icons/' + this.symbol.toLowerCase() + '.png';
   }
 
   get coinValue() {
