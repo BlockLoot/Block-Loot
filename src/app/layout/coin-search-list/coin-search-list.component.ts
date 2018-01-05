@@ -4,6 +4,7 @@ import { Currency } from '../../shared/models/currency.model';
 import { Subscription } from 'rxjs/Subscription';
 import { UserSettingsService } from '../../data/user-settings.service';
 import { LocalStorageService } from '../../core/local-storage.service';
+import {AVAILABLE_COIN_ICONS} from '../../data/icons.constants';
 
 @Component({
   selector: 'app-coin-search-list',
@@ -32,7 +33,11 @@ export class CoinSearchListComponent implements OnInit, OnDestroy {
   }
 
   iconURL(currency: Currency): string {
-      return '../../../assets/icons/' + currency.symbol.toLowerCase() + '.png';
+      if (AVAILABLE_COIN_ICONS.indexOf(currency.symbol.toLowerCase()) > -1) {
+          return '../../../assets/icons/' + currency.symbol.toLowerCase() + '.png';
+      } else {
+          return '';
+      }
   }
 
   addCurrency(currency: Currency): void {

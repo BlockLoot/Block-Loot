@@ -1,7 +1,7 @@
 <div class="container">
     <p (click)="closeClick()">Close</p>
     <div (click)="swal()">
-        <img src="{{iconURL}}">
+        <img *ngIf="iconURL.length > 0" src="{{iconURL}}">
         <p> {{ name }} </p>
         <p> Coin value: ${{ coinValue }}</p>
         <ng-container *ngIf="amountOwned > 0">

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SweetAlertService } from '../sweet-alert.service';
 import { UserSettingsService } from '../../data/user-settings.service';
 import { LocalStorageService } from '../../core/local-storage.service';
+import {AVAILABLE_COIN_ICONS} from '../../data/icons.constants';
 
 @Component({
   selector: 'app-currency-tile',
@@ -21,7 +22,11 @@ export class CurrencyTileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.iconURL = '../../../assets/icons/' + this.symbol.toLowerCase() + '.png';
+    if (AVAILABLE_COIN_ICONS.indexOf(this.symbol.toLowerCase()) > -1) {
+        this.iconURL = '../../../assets/icons/' + this.symbol.toLowerCase() + '.png';
+    } else {
+      this.iconURL = '';
+    }
   }
 
   get coinValue() {
