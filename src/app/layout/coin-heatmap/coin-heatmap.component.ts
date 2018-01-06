@@ -39,10 +39,7 @@ export class CoinHeatmapComponent implements OnInit {
 
   updateCurrCoin(coin){
     coin.price_usd = Number(coin.price_usd).toFixed(2);
-    coin.price_usd = '$' + coin.price_usd;
     coin.market_cap_usd = Number(coin.market_cap_usd).toFixed(2);
-    coin.market_cap_usd = '$' + coin.market_cap_usd;
-    coin.price_btc = 'Ƀ ' + coin.price_btc;
     this.currCoin = coin;
   }
 
