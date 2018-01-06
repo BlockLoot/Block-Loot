@@ -13,4 +13,5 @@ export class Currency {
   percent_change_24h?: string;
   percent_change_7d?: string;
   last_updated?: string;
+  iconURL?: string;
 }
