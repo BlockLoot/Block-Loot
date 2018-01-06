@@ -14,7 +14,7 @@ export class CurrencyTileComponent implements OnInit {
   @Input() value: number;
   @Input() symbol: string;
   @Input() amountOwned: number;
-  iconURL: string;
+  // iconURL: string;
 
   constructor(private sweetAlertService: SweetAlertService,
               private userSettingsService: UserSettingsService,
@@ -22,11 +22,18 @@ export class CurrencyTileComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (AVAILABLE_COIN_ICONS.indexOf(this.symbol.toLowerCase()) > -1) {
-        this.iconURL = '../../../assets/icons/' + this.symbol.toLowerCase() + '.png';
-    } else {
-      this.iconURL = '';
-    }
+    // if (AVAILABLE_COIN_ICONS.indexOf(this.symbol.toLowerCase()) > -1) {
+    //   this.iconURL = '../../../assets/icons/' + this.symbol.toLowerCase() + '.png';
+    // } else {
+    //   this.iconURL = '';
+    // }
+  }
+
+  get iconURL(): string {
+    const symbol = this.symbol.toLowerCase();
+    const iconPath = `../../../assets/icons/${symbol}.png`;
+
+    return AVAILABLE_COIN_ICONS.indexOf(symbol) > -1 ? iconPath : '';
   }
 
   get coinValue() {
