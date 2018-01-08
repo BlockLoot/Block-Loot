@@ -11,7 +11,7 @@ import { LocalStorageService } from '../core/local-storage.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  currencyData: Currency[];
+  currencyData: Currency[] = [];
   currencyKeysToDisplay: string[];
   currencyKeysToDisplaySubscription: Subscription;
 
@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
    * @returns {Currency[]}
    */
   get filteredCurrencyData(): Currency[] {
-    if (this.currencyData) {
       return this.currencyData.filter((item: Currency) => {
         const acceptableKeys = this.currencyKeysToDisplay || [];
         const el = item;
@@ -46,7 +45,10 @@ export class HomeComponent implements OnInit {
           }
         }
       });
-    }
+  }
+
+  get currencyDataReady(): boolean {
+      return this.currencyData.length > 0;
   }
 
   private loadCurrencyData(): void {
@@ -65,14 +67,11 @@ export class HomeComponent implements OnInit {
     if (currencyAmountsOwned !== null) {
       this.userSettingsService.currencyAmountsOwned = currencyAmountsOwned;
     } else {
-      //this.userSettingsService.currencyAmountsOwned = {};
+      // Default currencies owned
       this.userSettingsService.currencyAmountsOwned = {
-        'BTC': 0.0271,
-        'LTC': 22.00,
-        'GNT': 761.00,
-        'ETH': 0.807,
-        'QTUM': 2.00,
-        'OMG': 2.00
+        'BTC': 1.0,
+        'LTC': 1.0,
+        'ETH': 1.0,
       };
       this.localStorageService.setItem('currencyAmountsOwned',
         JSON.stringify(this.userSettingsService.currencyAmountsOwned));
