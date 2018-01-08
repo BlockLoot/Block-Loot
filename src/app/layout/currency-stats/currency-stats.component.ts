@@ -23,7 +23,7 @@ export class CurrencyStatsComponent implements OnInit {
       for (const currentCurrency of this.allCurrencies) {
         if (currencyAmountsOwned !== null && currentCurrency.symbol.toUpperCase() in currencyAmountsOwned) {
           sumOfCurrencies += +(currentCurrency.price_usd *
-          currencyAmountsOwned[currentCurrency.symbol.toUpperCase()]);
+            currencyAmountsOwned[currentCurrency.symbol.toUpperCase()]);
         }
       }
     }

@@ -10,4 +10,5 @@ import { TestRoutingModule } from './test-routing.module';
   ],
   declarations: []
 })
-export class TestModule { }
+export class TestModule {
+}

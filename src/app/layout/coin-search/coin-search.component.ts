@@ -33,7 +33,7 @@ export class CoinSearchComponent implements OnInit {
           // check to see if the name or symbol contains the search text.  Sort results by the market cap descending.
           // Algorithm subject to change.
           if (item.market_cap_usd !== null && (item.name.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
-            item.symbol.toLowerCase().indexOf(value.toLowerCase()) > -1)) {
+              item.symbol.toLowerCase().indexOf(value.toLowerCase()) > -1)) {
             return item;
           }
         }).sort(this.sortByMarketCapDescending));

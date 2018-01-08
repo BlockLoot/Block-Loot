@@ -8,25 +8,25 @@ import { Currency } from '../shared/models/currency.model';
 @Injectable()
 export class CoinMarketCapService {
 
-    constructor(private http: Http) {
-    }
+  constructor(private http: Http) {
+  }
 
-    getAllCurrencyData(): Observable<Currency[]> {
-        return this.http.get(ENDPOINT.currenciesURL)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+  getAllCurrencyData(): Observable<Currency[]> {
+    return this.http.get(ENDPOINT.currenciesURL)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
-    private extractData(res: Response) {
-        const body = res.json();
-        return body || [];
-    }
+  private extractData(res: Response) {
+    const body = res.json();
+    return body || [];
+  }
 
-    private handleError(error: any) {
-        const errMsg = (error.message) ? error.message :
-            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg);
-        return Observable.throw(errMsg);
-    }
+  private handleError(error: any) {
+    const errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg);
+    return Observable.throw(errMsg);
+  }
 
 }
