@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Currency } from '../shared/models/currency.model';
-import { CoinMarketCapService } from '../data/coin-market-cap.service';
-import { UserSettingsService } from '../data/user-settings.service';
-import { Subscription } from 'rxjs/Subscription';
-import { LocalStorageService } from '../core/local-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {Currency} from '../shared/models/currency.model';
+import {CoinMarketCapService} from '../data/coin-market-cap.service';
+import {UserSettingsService} from '../data/user-settings.service';
+import {Subscription} from 'rxjs/Subscription';
+import {LocalStorageService} from '../core/local-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -34,26 +34,35 @@ export class HomeComponent implements OnInit {
    * @returns {Currency[]}
    */
   get filteredCurrencyData(): Currency[] {
-      return this.currencyData.filter((item: Currency) => {
-        const acceptableKeys = this.currencyKeysToDisplay || [];
-        const el = item;
+    return this.currencyData.filter((item: Currency) => {
+      const acceptableKeys = this.currencyKeysToDisplay || [];
+      const el = item;
 
-        // Add undefined check to pass tests
-        if (typeof el.symbol !== 'undefined') {
-          if (acceptableKeys.indexOf(el.symbol.toUpperCase()) > -1) {
-            return item;
-          }
+      // Add undefined check to pass tests
+      if (typeof el.symbol !== 'undefined') {
+        if (acceptableKeys.indexOf(el.symbol.toUpperCase()) > -1) {
+          return item;
         }
-      });
+      }
+    });
   }
 
   get currencyDataReady(): boolean {
-      return this.currencyData.length > 0;
+    return this.currencyData.length > 0;
   }
 
   private loadCurrencyData(): void {
+    const localCurrencyData = JSON.parse(this.localStorageService.getItem('allCurrencyData'));
+    if (localCurrencyData !== null) {
+      this.currencyData = localCurrencyData;
+    }
     this.coinMarketCapService.getAllCurrencyData()
-      .subscribe(data => this.currencyData = data);
+      .subscribe(data => this.setCurrencyData(data));
+  }
+
+  private setCurrencyData(currencyData: Currency[]): void {
+    this.currencyData = currencyData;
+    this.localStorageService.setItem('allCurrencyData', JSON.stringify(this.currencyData));
   }
 
   private loadLocalStorage(): void {
@@ -84,7 +93,8 @@ export class HomeComponent implements OnInit {
     if (keysToDisplay !== null) {
       this.userSettingsService.updateCurrenciesToDisplay(keysToDisplay);
     } else {
-      this.userSettingsService.updateCurrenciesToDisplay(['BTC', 'LTC', 'GNT', 'ETH', 'QTUM', 'OMG']);
+      // Default currencies to display
+      this.userSettingsService.updateCurrenciesToDisplay(['BTC', 'LTC', 'ETH']);
       this.localStorageService.setItem('currencyKeysToDisplay',
         JSON.stringify(this.userSettingsService.currencyKeysToDisplay));
     }
