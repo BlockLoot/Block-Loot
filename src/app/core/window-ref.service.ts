@@ -7,7 +7,8 @@ function getWindow(): Window {
 @Injectable()
 export class WindowRefService {
 
-  constructor() { }
+  constructor() {
+  }
 
   /**
    * Encapsulates native browser window in Angular

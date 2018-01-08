@@ -1,7 +1,7 @@
-import {Component, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import * as d3 from 'd3';
-import {Currency} from '../../shared/models/currency.model';
-import {CoinMarketCapService} from '../../data/coin-market-cap.service';
+import { Currency } from '../../shared/models/currency.model';
+import { CoinMarketCapService } from '../../data/coin-market-cap.service';
 
 @Component({
   selector: 'app-coin-heatmap',
@@ -20,25 +20,25 @@ export class CoinHeatmapComponent implements OnInit {
   }
 
   private initializeHeatMap(): void {
-      const parent = this;
-      this.drawHeatmap(this.allCurrencies).then(function (error) {
-          if (error) {
-              console.log(error);
-          } else {
-              const arr = parent.elRef.nativeElement.getElementsByClassName('leaf-node');
-              for (let i = 0; i < arr.length; i++) {
-                  parent.renderer.listen(arr[i], 'click', event2 => {
-                      const el = arr[i];
-                      parent.removeOutlines();
-                      parent.generateInsight(el, parent.allCurrencies);
-                  });
-              }
-              parent.updateCurrCoin(parent.findObjectByKey(parent.allCurrencies, 'id', 'bitcoin'));
-          }
-      });
+    const parent = this;
+    this.drawHeatmap(this.allCurrencies).then(function (error) {
+      if (error) {
+        console.log(error);
+      } else {
+        const arr = parent.elRef.nativeElement.getElementsByClassName('leaf-node');
+        for (let i = 0; i < arr.length; i++) {
+          parent.renderer.listen(arr[i], 'click', event2 => {
+            const el = arr[i];
+            parent.removeOutlines();
+            parent.generateInsight(el, parent.allCurrencies);
+          });
+        }
+        parent.updateCurrCoin(parent.findObjectByKey(parent.allCurrencies, 'id', 'bitcoin'));
+      }
+    });
   }
 
-  updateCurrCoin(coin){
+  updateCurrCoin(coin) {
     coin.price_usd = Number(coin.price_usd).toFixed(2);
     coin.market_cap_usd = Number(coin.market_cap_usd).toFixed(2);
     this.currCoin = coin;

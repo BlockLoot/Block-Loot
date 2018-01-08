@@ -22,6 +22,7 @@ import { CoreModule } from './core/core.module';
     HomeModule,
     AppRoutingModule
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
