@@ -18,6 +18,7 @@ def init() {
             withAWS(credentials:'aws') {
                 s3Delete(bucket:'blockloot.com', path:'/')
                 s3Upload(file:'dist/', bucket:'blockloot.com', path:'')
+                cfInvalidate(distribution:'ET680G060AKME', paths:['/*'])
             }
         }
     }
