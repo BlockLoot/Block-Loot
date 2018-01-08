@@ -12,6 +12,7 @@ import { UserSettingsService } from './user-settings.service';
     HttpModule
   ],
   declarations: [],
-  providers: [ CoinMarketCapService, UserSettingsService ]
+  providers: [CoinMarketCapService, UserSettingsService]
 })
-export class DataModule { }
+export class DataModule {
+}

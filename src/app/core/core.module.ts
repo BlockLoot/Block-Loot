@@ -8,6 +8,7 @@ import { LocalStorageService } from './local-storage.service';
     CommonModule
   ],
   declarations: [],
-  providers: [ WindowRefService, LocalStorageService ]
+  providers: [WindowRefService, LocalStorageService]
 })
-export class CoreModule { }
+export class CoreModule {
+}

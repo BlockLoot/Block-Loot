@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SweetAlertService } from '../sweet-alert.service';
 import { UserSettingsService } from '../../data/user-settings.service';
 import { LocalStorageService } from '../../core/local-storage.service';
-import {AVAILABLE_COIN_ICONS} from '../../data/icons.constants';
+import { AVAILABLE_COIN_ICONS } from '../../data/icons.constants';
 
 @Component({
   selector: 'app-currency-tile',
@@ -76,7 +76,7 @@ export class CurrencyTileComponent implements OnInit {
 
     this.userSettingsService.updateCurrenciesToDisplay(keys);
     this.localStorageService.setItem('currencyKeysToDisplay',
-          JSON.stringify(this.userSettingsService.currencyKeysToDisplay));
+      JSON.stringify(this.userSettingsService.currencyKeysToDisplay));
   }
 
 }

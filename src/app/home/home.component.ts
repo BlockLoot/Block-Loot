@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Currency} from '../shared/models/currency.model';
-import {CoinMarketCapService} from '../data/coin-market-cap.service';
-import {UserSettingsService} from '../data/user-settings.service';
-import {Subscription} from 'rxjs/Subscription';
-import {LocalStorageService} from '../core/local-storage.service';
+import { Component, OnInit } from '@angular/core';
+import { Currency } from '../shared/models/currency.model';
+import { CoinMarketCapService } from '../data/coin-market-cap.service';
+import { UserSettingsService } from '../data/user-settings.service';
+import { Subscription } from 'rxjs/Subscription';
+import { LocalStorageService } from '../core/local-storage.service';
 
 @Component({
   selector: 'app-home',

@@ -4,7 +4,8 @@ import sweetalert from 'sweetalert2';
 @Injectable()
 export class SweetAlertService {
 
-  constructor() { }
+  constructor() {
+  }
 
   swal(param1?, param2?, param3?) {
     return sweetalert(param1, param2, param3);
@@ -39,23 +40,23 @@ export class SweetAlertService {
   }
 
   question(options): Promise<any> {
-    return this.alert(Object.assign( { type: 'question' }, options ));
+    return this.alert(Object.assign({type: 'question'}, options));
   }
 
   success(options): Promise<any> {
-    return this.alert(Object.assign( { type: 'success' }, options ));
+    return this.alert(Object.assign({type: 'success'}, options));
   }
 
   error(options): Promise<any> {
-    return this.alert(Object.assign( { type: 'error' }, options ));
+    return this.alert(Object.assign({type: 'error'}, options));
   }
 
   warn(options): Promise<any> {
-    return this.alert(Object.assign( { type: 'warning' }, options ));
+    return this.alert(Object.assign({type: 'warning'}, options));
   }
 
   info(options): Promise<any> {
-    return this.alert(Object.assign( { type: 'info' }, options ));
+    return this.alert(Object.assign({type: 'info'}, options));
   }
 
 
