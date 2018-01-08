@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, Renderer, Renderer2} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
 import * as d3 from 'd3';
 import {Currency} from '../../shared/models/currency.model';
 import {CoinMarketCapService} from '../../data/coin-market-cap.service';
@@ -9,32 +9,33 @@ import {CoinMarketCapService} from '../../data/coin-market-cap.service';
   styleUrls: ['./coin-heatmap.component.scss']
 })
 export class CoinHeatmapComponent implements OnInit {
-  allCurrencies: Currency[];
+  @Input() allCurrencies: Currency[];
   currCoin: object;
 
   constructor(private coinMarketCapService: CoinMarketCapService, private elRef: ElementRef, private renderer: Renderer2) {
   }
 
   ngOnInit() {
-    this.coinMarketCapService.getAllCurrencyData().subscribe(data => {
-      this.allCurrencies = data;
+    this.initializeHeatMap();
+  }
+
+  private initializeHeatMap(): void {
       const parent = this;
       this.drawHeatmap(this.allCurrencies).then(function (error) {
-        if (error) {
-          console.log(error);
-        } else {
-          const arr = parent.elRef.nativeElement.getElementsByClassName('leaf-node');
-          for (let i = 0; i < arr.length; i++) {
-            parent.renderer.listen(arr[i], 'click', event2 => {
-              const el = arr[i];
-              parent.removeOutlines();
-              parent.generateInsight(el, parent.allCurrencies);
-            });
+          if (error) {
+              console.log(error);
+          } else {
+              const arr = parent.elRef.nativeElement.getElementsByClassName('leaf-node');
+              for (let i = 0; i < arr.length; i++) {
+                  parent.renderer.listen(arr[i], 'click', event2 => {
+                      const el = arr[i];
+                      parent.removeOutlines();
+                      parent.generateInsight(el, parent.allCurrencies);
+                  });
+              }
+              parent.updateCurrCoin(parent.findObjectByKey(parent.allCurrencies, 'id', 'bitcoin'));
           }
-          parent.updateCurrCoin(parent.findObjectByKey(parent.allCurrencies, 'id', 'bitcoin'));
-        }
       });
-    });
   }
 
   updateCurrCoin(coin){
