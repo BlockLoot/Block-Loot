@@ -1,6 +1,5 @@
 <div class="container">
     <div *ngIf="currencyDataReady">
-        <app-area-chart></app-area-chart>
         <app-currency-stats [allCurrencies]="filteredCurrencyData"></app-currency-stats>
         <div class="pure-g">
             <div class="pure-u-2-3">
@@ -11,11 +10,12 @@
                 <app-coin-search [allCurrencies]="currencyData"></app-coin-search>
             </div>
         </div>
-        <!--<div class="pure-g">-->
-            <!--<div class="pure-u-1-1">-->
+        <div class="pure-g">
+            <div class="pure-u-1-1">
                 <!--<app-coin-heatmap [allCurrencies]="currencyData"></app-coin-heatmap>-->
-            <!--</div>-->
-        <!--</div>-->
+                <app-area-chart></app-area-chart>
+            </div>
+        </div>
     </div>
 
     <div *ngIf="!currencyDataReady">
