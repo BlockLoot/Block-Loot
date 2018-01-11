@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { CoinSearchListComponent } from './coin-search-list/coin-search-list.component';
 import { CoinSearchService } from './coin-search.service';
 import { CoinHeatmapComponent } from './coin-heatmap/coin-heatmap.component';
+import { AreaChartComponent } from './area-chart/area-chart.component';
 
 export const sharedComponents = [
   CurrencyListComponent,
@@ -16,7 +17,8 @@ export const sharedComponents = [
   CurrencyStatsComponent,
   CoinSearchComponent,
   CoinSearchListComponent,
-  CoinHeatmapComponent];
+  CoinHeatmapComponent,
+  AreaChartComponent];
 
 @NgModule({
   imports: [
