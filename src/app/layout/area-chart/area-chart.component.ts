@@ -47,12 +47,12 @@ export class AreaChartComponent implements OnInit {
         return item;
       });
 
-      x.domain(d3.extent(chartData, function (data) {
-        return data.date;
+      x.domain(d3.extent(chartData, function (xData) {
+        return xData.date;
       }));
 
-      y.domain([0, d3.max(chartData, function (data) {
-        return data.close;
+      y.domain([0, d3.max(chartData, function (yData) {
+        return yData.close;
       })]);
 
       area.y0(y(0));
