@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import * as d3 from 'd3';
 import { Currency } from '../../shared/models/currency.model';
-import { CoinMarketCapService } from '../../data/coin-market-cap.service';
 
 @Component({
   selector: 'app-coin-heatmap',
@@ -12,7 +11,7 @@ export class CoinHeatmapComponent implements OnInit {
   @Input() allCurrencies: Currency[];
   currCoin: object;
 
-  constructor(private coinMarketCapService: CoinMarketCapService, private elRef: ElementRef, private renderer: Renderer2) {
+  constructor(private elRef: ElementRef, private renderer: Renderer2) {
   }
 
   ngOnInit() {
@@ -79,10 +78,10 @@ export class CoinHeatmapComponent implements OnInit {
         .attr('height', h);
 
       // one color function for positive, another for negative
-      const colorGreen = d3.scale.linear().domain([0, 100])
+      const colorGreen = d3.scaleLinear().domain([0, 100])
         .interpolate(d3.interpolateHcl)
         .range([d3.rgb('#bbffbb'), d3.rgb('#00FF00')]);
-      const colorRed = d3.scale.linear().domain([-100, 0])
+      const colorRed = d3.scaleLinear().domain([-100, 0])
         .interpolate(d3.interpolateHcl)
         .range([d3.rgb('#ff0000'), d3.rgb('#ffaaaa')]);
 
@@ -90,9 +89,9 @@ export class CoinHeatmapComponent implements OnInit {
       // this element is now bound to the variable 'dots'
       const dots = svg.append('g').attr('id', 'dots');
 
-      // initialize the 'pack' function from d3.layout
+      // initialize the 'pack' function from d3
       // provide that interface with a given size and value
-      const pack = d3.layout.pack()
+      const pack = d3.pack()
         .size([w, h])
         .value(function (d) {
           return Number(d['market_cap_usd']);
