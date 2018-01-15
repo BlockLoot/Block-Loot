@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 import { LayoutModule } from '../layout/layout.module';
-import { MockCoinMarketCapService } from '../../../spec/services/coin-market-cap.service';
-import { CoinMarketCapService } from '../data/coin-market-cap.service';
+import { MockCurrencyDataService } from '../../../spec/services/currency-data.service';
+import { CurrencyDataService } from '../data/currency-data.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -14,7 +14,7 @@ describe('HomeComponent', () => {
       imports: [ LayoutModule ],
       declarations: [ HomeComponent ],
       providers: [
-        { provide: CoinMarketCapService, useClass: MockCoinMarketCapService }
+        { provide: CurrencyDataService, useClass: MockCurrencyDataService }
       ]
     })
     .compileComponents();

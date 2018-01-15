@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { Currency } from '../../src/app/shared/models/currency.model';
 
-export class MockCoinMarketCapService {
+export class MockCurrencyDataService {
 
   constructor() {
   }

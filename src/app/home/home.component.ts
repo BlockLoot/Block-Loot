@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Currency } from '../shared/models/currency.model';
-import { CoinMarketCapService } from '../data/coin-market-cap.service';
 import { UserSettingsService } from '../data/user-settings.service';
 import { Subscription } from 'rxjs/Subscription';
 import { LocalStorageService } from '../core/local-storage.service';
+import { CurrencyDataService } from '../data/currency-data.service';
 
 @Component({
   selector: 'app-home',
@@ -12,10 +12,11 @@ import { LocalStorageService } from '../core/local-storage.service';
 })
 export class HomeComponent implements OnInit {
   currencyData: Currency[] = [];
+  priceHistoryData: Currency[] = [];
   currencyKeysToDisplay: string[];
   currencyKeysToDisplaySubscription: Subscription;
 
-  constructor(private coinMarketCapService: CoinMarketCapService,
+  constructor(private currencyDataService: CurrencyDataService,
               private userSettingsService: UserSettingsService,
               private localStorageService: LocalStorageService) {
   }
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit {
       data => this.currencyKeysToDisplay = data);
 
     this.loadCurrencyData();
+    this.loadPriceHistoryData();
     this.loadLocalStorage();
   }
 
@@ -48,7 +50,7 @@ export class HomeComponent implements OnInit {
   }
 
   get currencyDataReady(): boolean {
-    return this.currencyData.length > 0;
+    return this.currencyData.length > 0 && this.priceHistoryData.length > 0;
   }
 
   private loadCurrencyData(): void {
@@ -56,13 +58,27 @@ export class HomeComponent implements OnInit {
     if (localCurrencyData !== null) {
       this.currencyData = localCurrencyData;
     }
-    this.coinMarketCapService.getAllCurrencyData()
+    this.currencyDataService.getAllCurrencyData()
       .subscribe(data => this.setCurrencyData(data));
   }
 
   private setCurrencyData(currencyData: Currency[]): void {
     this.currencyData = currencyData;
     this.localStorageService.setItem('allCurrencyData', JSON.stringify(this.currencyData));
+  }
+
+  private loadPriceHistoryData(): void {
+    const priceHistoryData = JSON.parse(this.localStorageService.getItem('priceHistoryData'));
+    if (priceHistoryData !== null) {
+      this.priceHistoryData = priceHistoryData;
+    }
+    this.currencyDataService.getPriceHistoryData()
+      .subscribe(data => this.setPriceHistory(data));
+  }
+
+  private setPriceHistory(priceHistoryData: Currency[]): void {
+    this.priceHistoryData = priceHistoryData;
+    this.localStorageService.setItem('priceHistoryData', JSON.stringify(this.priceHistoryData));
   }
 
   private loadLocalStorage(): void {

@@ -6,13 +6,19 @@ import { ENDPOINT } from './endpoint.constants';
 import { Currency } from '../shared/models/currency.model';
 
 @Injectable()
-export class CoinMarketCapService {
+export class CurrencyDataService {
 
   constructor(private http: Http) {
   }
 
   getAllCurrencyData(): Observable<Currency[]> {
     return this.http.get(ENDPOINT.currenciesURL)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getPriceHistoryData(): Observable<Currency[]> {
+    return this.http.get(ENDPOINT.priceHistoryURL)
       .map(this.extractData)
       .catch(this.handleError);
   }

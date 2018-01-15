@@ -2,22 +2,22 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 
-import { CoinMarketCapService } from './coin-market-cap.service';
+import { CurrencyDataService } from './currency-data.service';
 
 import '../rxjs-operators';
 
-describe('CoinMarketCapService', () => {
+describe('CurrencyDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpModule ],
       providers: [
-        CoinMarketCapService,
+        CurrencyDataService,
         { provide: XHRBackend, useClass: MockBackend }
       ]
     });
   });
 
-  it('should be created', inject([CoinMarketCapService], (service: CoinMarketCapService) => {
+  it('should be created', inject([CurrencyDataService], (service: CurrencyDataService) => {
     expect(service).toBeTruthy();
   }));
 });

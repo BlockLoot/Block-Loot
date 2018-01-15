@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
-import { CoinMarketCapService } from './coin-market-cap.service';
+import { CurrencyDataService } from './currency-data.service';
 import { UserSettingsService } from './user-settings.service';
 
 
@@ -12,7 +12,7 @@ import { UserSettingsService } from './user-settings.service';
     HttpModule
   ],
   declarations: [],
-  providers: [CoinMarketCapService, UserSettingsService]
+  providers: [CurrencyDataService, UserSettingsService]
 })
 export class DataModule {
 }

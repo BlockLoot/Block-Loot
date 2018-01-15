@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as d3 from 'd3';
+import { Currency } from "../../shared/models/currency.model";
 
 @Component({
   selector: 'app-area-chart',
@@ -7,6 +8,7 @@ import * as d3 from 'd3';
   styleUrls: ['./area-chart.component.scss']
 })
 export class AreaChartComponent implements OnInit {
+  @Input() coinData: Currency[];
 
   constructor() {
   }
@@ -36,7 +38,7 @@ export class AreaChartComponent implements OnInit {
       });
 
 
-    d3.json('../../assets/data.json', function (error, data) {
+    d3.json(this.coinData, function (error, data) {
       if (error) {
         throw error;
       }
