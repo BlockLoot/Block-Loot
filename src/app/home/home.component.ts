@@ -4,6 +4,7 @@ import { UserSettingsService } from '../data/user-settings.service';
 import { Subscription } from 'rxjs/Subscription';
 import { LocalStorageService } from '../core/local-storage.service';
 import { CurrencyDataService } from '../data/currency-data.service';
+import { PriceEntry } from '../shared/models/price-entry.model';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { CurrencyDataService } from '../data/currency-data.service';
 })
 export class HomeComponent implements OnInit {
   currencyData: Currency[] = [];
-  priceHistoryData: Currency[] = [];
+  priceHistoryData: PriceEntry[];
   currencyKeysToDisplay: string[];
   currencyKeysToDisplaySubscription: Subscription;
 
@@ -50,7 +51,7 @@ export class HomeComponent implements OnInit {
   }
 
   get currencyDataReady(): boolean {
-    return this.currencyData.length > 0 && this.priceHistoryData.length > 0;
+    return this.currencyData.length > 0 && this.priceHistoryData != null;
   }
 
   private loadCurrencyData(): void {
@@ -68,15 +69,15 @@ export class HomeComponent implements OnInit {
   }
 
   private loadPriceHistoryData(): void {
-    const priceHistoryData = JSON.parse(this.localStorageService.getItem('priceHistoryData'));
-    if (priceHistoryData !== null) {
-      this.priceHistoryData = priceHistoryData;
-    }
+    // const priceHistoryData = JSON.parse(this.localStorageService.getItem('priceHistoryData'));
+    // if (priceHistoryData !== null) {
+    //   this.priceHistoryData = priceHistoryData;
+    // }
     this.currencyDataService.getPriceHistoryData()
       .subscribe(data => this.setPriceHistory(data));
   }
 
-  private setPriceHistory(priceHistoryData: Currency[]): void {
+  private setPriceHistory(priceHistoryData: PriceEntry[]): void {
     this.priceHistoryData = priceHistoryData;
     this.localStorageService.setItem('priceHistoryData', JSON.stringify(this.priceHistoryData));
   }

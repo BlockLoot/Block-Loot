@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { ENDPOINT } from './endpoint.constants';
 import { Currency } from '../shared/models/currency.model';
+import { PriceEntry } from '../shared/models/price-entry.model';
 
 @Injectable()
 export class CurrencyDataService {
@@ -17,7 +18,7 @@ export class CurrencyDataService {
       .catch(this.handleError);
   }
 
-  getPriceHistoryData(): Observable<Currency[]> {
+  getPriceHistoryData(): Observable<PriceEntry[]> {
     return this.http.get(ENDPOINT.priceHistoryURL)
       .map(this.extractData)
       .catch(this.handleError);

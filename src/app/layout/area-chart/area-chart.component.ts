@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as d3 from 'd3';
-import { Currency } from "../../shared/models/currency.model";
+import { PriceEntry } from '../../shared/models/price-entry.model';
 
 @Component({
   selector: 'app-area-chart',
@@ -8,7 +8,7 @@ import { Currency } from "../../shared/models/currency.model";
   styleUrls: ['./area-chart.component.scss']
 })
 export class AreaChartComponent implements OnInit {
-  @Input() coinData: Currency[];
+  @Input() coinData: PriceEntry[];
 
   constructor() {
   }
@@ -24,7 +24,7 @@ export class AreaChartComponent implements OnInit {
       height = +svg.attr('height') - margin.top - margin.bottom,
       g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    const parseTime = d3.timeParse('%d-%b-%y');
+    const parseTime = d3.timeParse('%Y-%m-%d');
 
     const x = d3.scaleTime().rangeRound([0, width]);
 
@@ -34,36 +34,31 @@ export class AreaChartComponent implements OnInit {
       return x(d.date);
     })
       .y1(function (d) {
-        return y(d.close);
+        return y(d.value);
       });
 
+    const data = this.coinData;
 
-    d3.json(this.coinData, function (error, data) {
-      if (error) {
-        throw error;
-      }
-
-      const chartData = data.map(function (item) {
-        item.date = parseTime(item.date);
-        item.close = +item.close;
-        return item;
-      });
-
-      x.domain(d3.extent(chartData, function (xData) {
-        return xData.date;
-      }));
-
-      y.domain([0, d3.max(chartData, function (yData) {
-        return yData.close;
-      })]);
-
-      area.y0(y(0));
-
-      g.append('path')
-        .datum(data)
-        .attr('fill', 'green')
-        .attr('d', area);
+    const chartData = data.map(function (item) {
+      item.date = parseTime(item.date);
+      item.value = +item.value;
+      return item;
     });
+
+    x.domain(d3.extent(chartData, function (xData) {
+      return xData.date;
+    }));
+
+    y.domain([0, d3.max(chartData, function (yData) {
+      return yData.value;
+    })]);
+
+    area.y0(y(0));
+
+    g.append('path')
+      .datum(data)
+      .attr('fill', 'green')
+      .attr('d', area);
   }
 
 }
