@@ -34,14 +34,14 @@ export class AreaChartComponent implements OnInit {
       return x(d.date);
     })
       .y1(function (d) {
-        return y(d.value);
+        return y(d.total);
       });
 
     const data = this.coinData;
 
     const chartData = data.map(function (item) {
       item.date = parseTime(item.date);
-      item.value = +item.value;
+      item.total = +item.total;
       return item;
     });
 
@@ -50,7 +50,7 @@ export class AreaChartComponent implements OnInit {
     }));
 
     y.domain([0, d3.max(chartData, function (yData) {
-      return yData.value;
+      return yData.total;
     })]);
 
     area.y0(y(0));

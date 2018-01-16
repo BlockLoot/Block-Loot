@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { LocalStorageService } from '../core/local-storage.service';
 import { CurrencyDataService } from '../data/currency-data.service';
 import { PriceEntry } from '../shared/models/price-entry.model';
+import { PriceRequest } from "../shared/models/price-request.model";
 
 @Component({
   selector: 'app-home',
@@ -73,7 +74,13 @@ export class HomeComponent implements OnInit {
     // if (priceHistoryData !== null) {
     //   this.priceHistoryData = priceHistoryData;
     // }
-    this.currencyDataService.getPriceHistoryData()
+
+    const priceRequest = new PriceRequest();
+    priceRequest.symbols = ['eth', 'ltc', 'xmr', 'gnt'];
+    priceRequest.startDate = '2017-08-01';
+    priceRequest.endDate = '2017-11-20';
+
+    this.currencyDataService.getPriceHistoryData(priceRequest)
       .subscribe(data => this.setPriceHistory(data));
   }
 
