@@ -76,9 +76,9 @@ export class HomeComponent implements OnInit {
     // }
 
     const priceRequest = new PriceRequest();
-    priceRequest.symbols = ['eth', 'ltc', 'xmr', 'gnt'];
-    priceRequest.startDate = '2017-08-01';
-    priceRequest.endDate = '2017-11-20';
+    priceRequest.symbols = ['eth', 'ltc', 'btc'];
+    priceRequest.startDate = '2017-01-01';
+    priceRequest.endDate = '2018-01-01';
 
     this.currencyDataService.getPriceHistoryData(priceRequest)
       .subscribe(data => this.setPriceHistory(data));
